@@ -1,18 +1,18 @@
 import sys
-from collections import deque
+import heapq
 N, K = map(int, input().split())
-dist = [-1]*100001
-queue = deque([N])
+dist = [float('inf')]*100001
+queue = [(0, N)]
 dist[N] = 0
 while queue:
-    curr = queue.popleft()
+    d, curr = heapq.heappop(queue)
     if curr==K:
-        print(dist[curr])
+        print(d)
         break
-    for nxt in (curr-1,curr+1,curr*2):
-        sec = 0 if nxt==curr*2 else 1
-        if 0<=nxt<=100000 and dist[nxt]==-1:
-            if nxt==N: continue
-            dist[nxt] = dist[curr]+sec
-            if sec==0: queue.appendleft(nxt)
-            else: queue.append(nxt)
+    if dist[curr]<d: continue
+    for nxt, t in [(curr*2, 0), (curr+1, 1), (curr-1, 1)]:
+        if 0<=nxt<=100000:
+            cost = d + t
+            if cost<dist[nxt]:
+                dist[nxt] = cost
+                heapq.heappush(queue, (cost, nxt))
