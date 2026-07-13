@@ -1,24 +1,16 @@
+from collections import deque
 def solution(n, computers):
-    parent = [i for i in range(n)]
-    size = [1]*n
-    def find(node):
-        while node!=parent[node]:
-            parent[node] = parent[parent[node]]
-            node = parent[node]
-        return node
-    def union(u, v):
-        pu = find(u)
-        pv = find(v)
-        if pu!=pv:
-            if size[pv]>size[pu]:
-                pu, pv = pv, pu
-            parent[pv] = pu
-            size[pu]+=size[pv]
-            return 1
-        return 0
-    answer = n
+    visited = [0]*n
+    answer = 0
     for i in range(n):
-        for j in range(i+1, n):
-            if computers[i][j]==1: 
-                answer -= union(i,j)
+        if not visited[i]:
+            visited[i] = 1
+            q = deque([i])
+            answer+=1
+            while q:
+                curr = q.popleft()
+                for j in range(n):
+                    if curr!=j and computers[curr][j] and not visited[j]:
+                        visited[j] = 1
+                        q.append(j)
     return answer
