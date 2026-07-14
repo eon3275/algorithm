@@ -1,7 +1,6 @@
 from collections import defaultdict, deque
 def solution(begin, target, words):
-    answer = 0
-    if target not in words: return answer
+    if target not in words: return 0
     words.append(begin)
     patterns = defaultdict(list)
     for word in words:
@@ -13,12 +12,11 @@ def solution(begin, target, words):
     while q:
         word, step = q.popleft()
         if word==target:
-            answer=step
-            break
+            return step
         for i in range(len(word)):
             pattern = word[:i]+'*'+word[i+1:]
             for nxt in patterns[pattern]:
                 if nxt not in visited:
                     visited.add(nxt)
                     q.append((nxt,step+1))
-    return answer
+    return 0
