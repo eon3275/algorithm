@@ -3,8 +3,8 @@ def solution(tickets):
     adj = defaultdict(list)
     for src, dst in sorted(tickets, reverse=True):
         adj[src].append(dst)
-    stack = ['ICN']
     answer = []
+    stack = ['ICN']
     while stack:
         curr = stack[-1]
         if not adj[curr]:
