@@ -1,4 +1,3 @@
-from collections import defaultdict
 n, q = map(int, input().split())
 efficiency = list(map(int, input().split()))
 m = [int(input()) for _ in range(q)]
