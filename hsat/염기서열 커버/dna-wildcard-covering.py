@@ -4,7 +4,7 @@ sequences = [input() for _ in range(N)]
 # Please write your code here.
 incompat = [0]*N
 for i in range(N):
-    for j in range(N):
+    for j in range(i+1,N):
         comp = True
         for c in range(M):
             if (sequences[i][c]!='.' and sequences[j][c]!='.' and
